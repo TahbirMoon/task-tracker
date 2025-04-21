@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Task Tracker</h1>
+
+  <!-- Task form to add new tasks -->
+  <form id="task-form">
+    <input type="text" id="title" placeholder="Enter task title" required>
+    <input type="text" id="dueDate" placeholder="Enter due date (optional)">
+    <button type="submit">Add Task</button>
+  </form>
+
+  <h2>Tasks</h2>
+  <!-- Task list displayed here -->
+  <ul id="task-list"></ul>
+
+  <script src="app.js"></script>
+</body>
+</html>

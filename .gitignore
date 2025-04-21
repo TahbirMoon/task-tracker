@@ -1,0 +1,20 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Database files
+*.db
+*.sqlite
+
+# Environment/config files
+.env
+.env.local
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files (if applicable)
+.idea/
+.vscode/
+*.swp
