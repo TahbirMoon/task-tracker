@@ -222,4 +222,4 @@ I tracked my work across different days and logged it in the table below.
 ## 12. Repository and Version Link
 
 - GitHub Repo: https://github.com/TahbirMoon/task-tracker.git 
-- Version for submission: *(  )*
+- Version for submission: *( https://github.com/TahbirMoon/task-tracker/releases/tag/phase2-final )*
