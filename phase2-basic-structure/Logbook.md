@@ -1,7 +1,11 @@
-| Date       | Task                           | Hours |
-|------------|--------------------------------|-------|
-| Apr 21     | Added task creation feature    | 2     |
-| Apr 22     | Completed task completion logic | 2     |
-| Apr 23     | Added task deletion functionality | 1.5   |
-| Apr 24     | Final testing and debugging    | 2     |
-| Total      |                                | 7.5   |
+| Date       | What I Did                                  | Hours |
+|------------|----------------------------------------------|-------|
+| Apr 20     | Initial planning and layout                  | 1.5   |
+| Apr 21     | Coded the Add Task functionality             | 2     |
+| Apr 22     | Worked on task completion logic              | 2     |
+| Apr 23     | Coded the delete functionality               | 1.5   |
+| Apr 24     | Testing and debugging everything             | 2     |
+| Apr 25     | UI feedback updates and color adjustments    | 1.5   |
+| Apr 26     | Writing this report                          | 2     |
+| Apr 27     | Organizing files and pushing to GitHub       | 2.5   |
+| **Total**  |                                              | **15** |
