@@ -10,7 +10,7 @@
   <h1>Task Tracker</h1>
 
   <div class="container">
-    <!-- Task form to add new tasks -->
+    <!-- This form is where we type and add new tasks -->
     <form id="task-form">
       <input type="text" id="title" placeholder="Enter task title" required />
       <input type="date" id="dueDate" placeholder="Enter due date (optional)" />
@@ -18,10 +18,14 @@
     </form>
 
     <h2>Tasks</h2>
-    <!-- Task list displayed here -->
-    <ul id="task-list"></ul>
+
+    <!-- This is where all the tasks will show up -->
+    <ul id="task-list">
+      <!-- Each task will have buttons like Edit and Delete -->
+    </ul>
   </div>
 
+  <!-- JavaScript will handle all the logic -->
   <script src="app.js"></script>
 </body>
 </html>

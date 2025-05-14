@@ -1,61 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetchTasks(); // Fetch and display tasks when the page loads
+  fetchTasks();
 
-  // Event listener for form submission to add tasks
   document.getElementById('task-form').addEventListener('submit', addTask);
 });
 
-// Fetch all tasks from the backend and display them
 function fetchTasks() {
   fetch('http://localhost:3000/tasks')
     .then(response => response.json())
     .then(tasks => {
       const taskList = document.getElementById('task-list');
-      taskList.innerHTML = '';  // Clear current list
+      taskList.innerHTML = '';
 
       tasks.forEach(task => {
         const li = document.createElement('li');
-        li.textContent = `${task.title} - Due: ${task.dueDate || 'N/A'}`;
 
-        // Add a visual indicator for completed tasks (grey text color or "Completed" label)
+        const taskText = document.createElement('span');
+        taskText.textContent = `${task.title} - Due: ${task.dueDate || 'N/A'}`;
+        li.appendChild(taskText);
+
         if (task.completed) {
-          li.style.color = '#808080';  // Change text color to grey for completed tasks
-          
-          // Add "Completed" label
+          taskText.style.color = '#808080';
+
           const completedLabel = document.createElement('span');
           completedLabel.textContent = ' [Completed]';
-          completedLabel.style.color = 'green';  // Optional: make the "Completed" label green
+          completedLabel.style.color = 'green';
           li.appendChild(completedLabel);
         }
 
-        // Create the Complete/Undo button
         const completeButton = document.createElement('button');
         if (task.completed) {
-          completeButton.textContent = 'Completed'; // If the task is complete, show 'Completed'
-          completeButton.disabled = true;  // Disable the button so it cannot be clicked again
+          completeButton.textContent = 'Completed';
+          completeButton.disabled = true;
         } else {
           completeButton.textContent = 'Complete';
           completeButton.classList.add('complete');
-          completeButton.addEventListener('click', () => markComplete(task.id, completeButton, li));  // Mark task as complete when clicked
+          completeButton.addEventListener('click', () => markComplete(task.id, completeButton, taskText));
         }
 
-        // Delete task button
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => editTask(task, li));
+
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.classList.add('delete');
         deleteButton.addEventListener('click', () => deleteTask(task.id));
 
         li.appendChild(completeButton);
+        li.appendChild(editButton);
         li.appendChild(deleteButton);
+
         taskList.appendChild(li);
       });
     })
     .catch(error => console.error('Error:', error));
 }
 
-// Add a new task
 function addTask(event) {
-  event.preventDefault();  // Prevent form submission from refreshing the page
+  event.preventDefault();
 
   const title = document.getElementById('title').value;
   const dueDate = document.getElementById('dueDate').value;
@@ -66,50 +68,68 @@ function addTask(event) {
     body: JSON.stringify({ title, dueDate }),
   })
     .then(() => {
-      fetchTasks(); // Refresh the task list after adding the new task
-      document.getElementById('task-form').reset(); // Clear the form fields
+      fetchTasks();
+      document.getElementById('task-form').reset();
     })
     .catch(error => console.error('Error:', error));
 }
 
-// Mark a task as complete
-function markComplete(id, button, taskElement) {
+function markComplete(id, button, taskText) {
   fetch(`http://localhost:3000/tasks/${id}`, {
     method: 'PUT',
   })
-  .then(response => {
-    if (response.ok) {
-      // Update the UI to reflect the completion
-      taskElement.style.color = '#808080';  // Change text color to grey for completed tasks
-      taskElement.style.backgroundColor = '#d3ffd3';  // Green background
+    .then(response => {
+      if (response.ok) {
+        taskText.style.color = '#808080';
+        button.textContent = 'Completed';
+        button.disabled = true;
 
-      // Add "Completed" label
-      const completedLabel = document.createElement('span');
-      completedLabel.textContent = ' [Completed]';
-      completedLabel.style.color = 'green';  // Optional: make the "Completed" label green
-      taskElement.appendChild(completedLabel);
-
-      // Change the button text to "Completed" and disable it
-      button.textContent = 'Completed';
-      button.disabled = true;  // Disable the button to prevent re-clicking
-    } else {
-      console.error('Failed to mark task as complete');
-    }
-  })
-  .catch(error => console.error('Error:', error));
+        const completedLabel = document.createElement('span');
+        completedLabel.textContent = ' [Completed]';
+        completedLabel.style.color = 'green';
+        taskText.parentNode.appendChild(completedLabel);
+      } else {
+        console.error('Failed to mark task as complete');
+      }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
-// Delete a task
 function deleteTask(id) {
   fetch(`http://localhost:3000/tasks/${id}`, {
     method: 'DELETE',
   })
     .then(response => {
       if (response.ok) {
-        fetchTasks();  // Refresh the task list after deleting the task
+        fetchTasks();
       } else {
         console.error('Failed to delete task');
       }
     })
     .catch(error => console.error('Error:', error));
+}
+
+// ✅ Updated this part only
+function editTask(task, li) {
+  const newTitle = prompt('Edit task title:', task.title);
+  const newDueDate = prompt('Edit due date (YYYY-MM-DD):', task.dueDate);
+
+  if (newTitle !== null) {
+    fetch(`http://localhost:3000/tasks/update/${task.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: newTitle,
+        dueDate: newDueDate,
+      }),
+    })
+      .then(response => {
+        if (response.ok) {
+          fetchTasks();
+        } else {
+          console.error('Failed to update task');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  }
 }

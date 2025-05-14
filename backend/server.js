@@ -1,17 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');  // To handle paths correctly
-const db = require('./db');  // Import database connection
+const path = require('path');  // Built-in module to handle file paths
+const db = require('./db');    // Our SQLite database connection
 const app = express();
 const PORT = 3000;
 
+// Enable CORS and JSON parsing for incoming requests
 app.use(cors());
-app.use(express.json());  // Middleware to parse JSON requests
+app.use(express.json());
 
-// Serve static files (like index.html, style.css, app.js) from the frontend folder
+// Serve frontend files (HTML, CSS, JS) from the 'frontend' folder
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// API routes
+// ==================== ROUTES ====================
+
+// Get all tasks from the database
 app.get('/tasks', (req, res) => {
   db.all('SELECT * FROM tasks', [], (err, rows) => {
     if (err) return res.status(500).send(err.message);
@@ -19,40 +22,54 @@ app.get('/tasks', (req, res) => {
   });
 });
 
+// Add a new task to the database
 app.post('/tasks', (req, res) => {
   const { title, dueDate } = req.body;
-  db.run('INSERT INTO tasks (title, dueDate) VALUES (?, ?)', [title, dueDate], function(err) {
+  db.run('INSERT INTO tasks (title, dueDate) VALUES (?, ?)', [title, dueDate], function (err) {
     if (err) return res.status(500).send(err.message);
-    res.status(201).json({ id: this.lastID });
+    res.status(201).json({ id: this.lastID });  // Respond with the ID of the new task
   });
 });
 
-// Mark task as completed
+// Mark a task as completed
 app.put('/tasks/:id', (req, res) => {
-  const { id } = req.params;  // Get the task ID from the URL parameter
-  db.run('UPDATE tasks SET completed = 1 WHERE id = ?', [id], function(err) {
-    if (err) {
-      return res.status(500).send(err.message);  // If there's an error, return it
-    }
-    res.sendStatus(200);  // Successfully updated, return status 200
-  });
-});
-
-// Delete task
-app.delete('/tasks/:id', (req, res) => {
-  const { id } = req.params;  // Get the task ID from the URL parameter
-  db.run('DELETE FROM tasks WHERE id = ?', [id], function(err) {
+  const { id } = req.params;
+  db.run('UPDATE tasks SET completed = 1 WHERE id = ?', [id], function (err) {
     if (err) return res.status(500).send(err.message);
-    res.sendStatus(200);  // Successfully deleted, return status 200
+    res.sendStatus(200);  // Task marked as completed
   });
 });
 
-// Root route to serve index.html
+// ✅ Update an existing task's title and dueDate
+app.put('/tasks/update/:id', (req, res) => {
+  const { id } = req.params;
+  const { title, dueDate } = req.body;
+
+  db.run(
+    'UPDATE tasks SET title = ?, dueDate = ? WHERE id = ?',
+    [title, dueDate, id],
+    function (err) {
+      if (err) return res.status(500).send(err.message);
+      res.sendStatus(200);  // Task updated
+    }
+  );
+});
+
+// Delete a task from the database
+app.delete('/tasks/:id', (req, res) => {
+  const { id } = req.params;
+  db.run('DELETE FROM tasks WHERE id = ?', [id], function (err) {
+    if (err) return res.status(500).send(err.message);
+    res.sendStatus(200);  // Task deleted
+  });
+});
+
+// Serve the frontend HTML when visiting root URL
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-// Start the server
+// Start the Express server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server is running at http://localhost:${PORT}`);
 });

@@ -1,27 +1,27 @@
-/* 🌟 Clean and professional background */
+/* Basic reset and nice-looking background */
 body {
   margin: 0;
   padding: 40px 20px;
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: linear-gradient(to right, #ece9e6, #ffffff);
+  background: linear-gradient(to right, #ece9e6, #ffffff); /* soft gradient */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #333;
+  color: #333; /* dark text for readability */
 }
 
-/* 📦 Optional container to wrap everything */
+/* Main container that holds everything in the center */
 .container {
   background: #ffffff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
   max-width: 600px;
   width: 100%;
 }
 
-/* 📝 Form inputs */
+/* Input fields styling for the add task form */
 form input {
   margin-right: 10px;
   padding: 8px;
@@ -30,13 +30,14 @@ form input {
   border: 1px solid #ccc;
 }
 
-/* 🧷 Task list style */
+/* Remove default list styles and center the list */
 ul {
   list-style-type: none;
   padding: 0;
   width: 100%;
 }
 
+/* Each task item styling */
 li {
   margin: 10px 0;
   padding: 10px;
@@ -47,9 +48,9 @@ li {
   align-items: center;
 }
 
-/* ✅ Complete button */
+/* Button style for marking task as complete */
 button.complete {
-  background-color: #4caf50;
+  background-color: #4caf50; /* green */
   color: white;
   border: none;
   border-radius: 4px;
@@ -57,9 +58,9 @@ button.complete {
   cursor: pointer;
 }
 
-/* ❌ Delete button */
+/* Button style for deleting a task */
 button.delete {
-  background-color: #e53935;
+  background-color: #e53935; /* red */
   color: white;
   border: none;
   border-radius: 4px;
@@ -68,9 +69,9 @@ button.delete {
   cursor: pointer;
 }
 
-/* 🖋️ Edit button (for Phase 3) */
+/* Button style for editing a task */
 button.edit {
-  background-color: #1976d2;
+  background-color: #1976d2; /* blue */
   color: white;
   border: none;
   border-radius: 4px;
@@ -79,10 +80,10 @@ button.edit {
   cursor: pointer;
 }
 
-/* ✨ Add button */
+/* Submit button style in the form */
 form button {
   padding: 8px 14px;
-  background-color: #2196f3;
+  background-color: #2196f3; /* lighter blue */
   color: white;
   border: none;
   border-radius: 6px;
