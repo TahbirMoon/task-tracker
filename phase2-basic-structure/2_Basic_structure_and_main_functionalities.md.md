@@ -205,17 +205,20 @@ function deleteTask(id) {
 
 I tracked my work across different days and logged it in the table below.
 
-| Date       | What I Did                                  | Hours |
-|------------|----------------------------------------------|-------|
-| Apr 20     | Initial planning and layout                  | 1.5   |
-| Apr 21     | Coded the Add Task functionality             | 2     |
-| Apr 22     | Worked on task completion logic              | 2     |
-| Apr 23     | Coded the delete functionality               | 1.5   |
-| Apr 24     | Testing and debugging everything             | 2     |
-| Apr 25     | UI feedback updates and color adjustments    | 1.5   |
-| Apr 26     | Writing this report                          | 2     |
-| Apr 27     | Organizing files and pushing to GitHub       | 2.5   |
-| **Total**  |                                              | **15** |
+
+| Date       | Used hours | Subject(s)                   | Outcome                                    |
+|------------|------------|------------------------------|--------------------------------------------|
+| 20.04.2025 | 2.5        | Initial planning and layout  | Designed basic UI and folder structure     |
+| 21.04.2025 | 3          | Add Task feature             | Implemented task creation logic            |
+| 22.04.2025 | 3.5        | Complete Task feature        | Added logic to mark tasks as done          |
+| 23.04.2025 | 2.5        | Delete Task feature          | Built delete button + backend route        |
+| 24.04.2025 | 2.5        | Testing and debugging        | Fixed styling and fetch refresh issues     |
+| 25.04.2025 | 2          | UI polish and minor changes  | Adjusted layout for completed tasks        |
+| 26.04.2025 | 2.5        | Writing this report          | Wrote and formatted Phase 2 markdown       |
+| 27.04.2025 | 1.5        | Git + cleanup                | Organized repo and pushed to GitHub        |
+| **Total**  | **20**     | –                            | –                                          |
+
+
 
 ---
 
